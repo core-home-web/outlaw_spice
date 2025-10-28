@@ -69,10 +69,19 @@ def load_products():
                 products[handle].append(row)
     
     # Convert to regular dict with first variant as main product
+    # BUT search all variants for the best image (.avif preferred)
     result = {}
     for handle, variants in products.items():
         main = variants[0].copy()
         main['variants'] = variants
+        
+        # Look through all variants to find an .avif image
+        for variant in variants:
+            image = variant.get('Main Variant Image', '').strip()
+            if image and image.lower().endswith('.avif'):
+                main['Main Variant Image'] = image
+                break
+        
         result[handle] = main
     
     return result

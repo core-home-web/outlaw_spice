@@ -33,10 +33,19 @@ def load_products():
                 products[handle].append(row)
     
     # Convert to regular dict with first variant as main product
+    # BUT search all variants for the best image (.avif preferred)
     result = {}
     for handle, variants in products.items():
         main = variants[0].copy()
         main['variants'] = variants
+        
+        # Look through all variants to find an .avif image
+        for variant in variants:
+            image = variant.get('Main Variant Image', '').strip()
+            if image and image.lower().endswith('.avif'):
+                main['Main Variant Image'] = image
+                break
+        
         result[handle] = main
     
     return result
@@ -45,16 +54,31 @@ def create_product_slides(products):
     """Generate HTML for product slider slides - ONE product per slide"""
     slides_html = ""
     
-    # Create one slide per product
-    product_list = list(products.items())
-    
-    for slide_idx, (handle, product) in enumerate(product_list):
-        name = product.get('Product Name', '')
-        image = product.get('Main Variant Image', 'images/49764_L_Group1.JPG')
+    # Filter products to only include those with .avif images (exclude image17)
+    filtered_products = []
+    for handle, product in products.items():
+        image = product.get('Main Variant Image', '').strip()
         
-        # Use placeholder if no image
-        if not image or image.strip() == '':
-            image = 'images/49764_L_Group1.JPG'
+        # Skip if no image
+        if not image:
+            continue
+            
+        # Skip if image contains "image17" (placeholder)
+        if 'image17' in image.lower():
+            continue
+            
+        # Only include images ending in .avif
+        if not image.lower().endswith('.avif'):
+            continue
+            
+        filtered_products.append((handle, product))
+    
+    print(f"Filtered to {len(filtered_products)} products with .avif images (excluding image17)")
+    
+    # Create one slide per filtered product
+    for slide_idx, (handle, product) in enumerate(filtered_products):
+        name = product.get('Product Name', '')
+        image = product.get('Main Variant Image', '')
         
         # Determine arrow placement for this slide
         left_arrow = ""
@@ -68,7 +92,7 @@ def create_product_slides(products):
         else:
             left_arrow = '\n                  <div class="arrow-left"></div>'
             
-        if slide_idx < len(product_list) - 1:
+        if slide_idx < len(filtered_products) - 1:
             right_arrow = '''
                   <div class="arrow-right">
                     <a href="#" class="slider-right w-inline-block"><img alt="" src="https://uploads-ssl.webflow.com/615c56b91f3527264e223357/615c56ba1f35277341223374_arrow-right.svg" class="arrow-3"></a>
@@ -134,7 +158,7 @@ def update_homepage():
         f.write(html_updated)
     
     print(f"\n✅ Product slider updated successfully!")
-    print(f"   - Created {len(products)} slides (1 product per slide)")
+    print(f"   - Created slides from filtered products with .avif images")
 
 if __name__ == '__main__':
     update_homepage()
