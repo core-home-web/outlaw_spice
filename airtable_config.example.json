@@ -1,0 +1,7 @@
+{
+  "airtable_token": "your_token_here",
+  "base_id": "your_base_id_here",
+  "products_table": "Products",
+  "recipes_table": "Recipes"
+}
+
