@@ -75,12 +75,37 @@ def load_products():
         main = variants[0].copy()
         main['variants'] = variants
         
-        # Look through all variants to find an .avif image
+        # Look through all variants to find best images and content
+        # Priority: Transparent Product Image > Main Product Image > Main Variant Image (.avif)
         for variant in variants:
-            image = variant.get('Main Variant Image', '').strip()
-            if image and image.lower().endswith('.avif'):
-                main['Main Variant Image'] = image
+            # Check for Transparent Product Image first
+            transparent_img = variant.get('Transparent Product Image', '').strip()
+            if transparent_img and transparent_img.lower().endswith('.avif'):
+                main['Transparent Product Image'] = transparent_img
                 break
+        
+        # If no transparent image, look for Main Variant Image
+        if not main.get('Transparent Product Image'):
+            for variant in variants:
+                image = variant.get('Main Variant Image', '').strip()
+                if image and image.lower().endswith('.avif'):
+                    main['Main Variant Image'] = image
+                    break
+        
+        # Also collect other image and content fields from first variant with data
+        for variant in variants:
+            if not main.get('Main Product Image') and variant.get('Main Product Image'):
+                main['Main Product Image'] = variant.get('Main Product Image')
+            if not main.get('More Images 1') and variant.get('More Images 1'):
+                main['More Images 1'] = variant.get('More Images 1')
+            if not main.get('More Images 2') and variant.get('More Images 2'):
+                main['More Images 2'] = variant.get('More Images 2')
+            if not main.get('More Images 3') and variant.get('More Images 3'):
+                main['More Images 3'] = variant.get('More Images 3')
+            if not main.get('Product Description') and variant.get('Product Description'):
+                main['Product Description'] = variant.get('Product Description')
+            if not main.get('Product Ingredients') and variant.get('Product Ingredients'):
+                main['Product Ingredients'] = variant.get('Product Ingredients')
         
         result[handle] = main
     
@@ -118,8 +143,24 @@ def create_product_page(handle, product, output_dir):
     # Extract product data
     name = product.get('Product Name', '')
     description = product.get('Product Description', '')
-    main_image = product.get('Main Variant Image', '')
-    more_images = parse_more_images(product.get('More Variant Images', ''))
+    ingredients = product.get('Product Ingredients', '')
+    
+    # Image fields (new structure)
+    transparent_image = product.get('Transparent Product Image', '')
+    main_product_image = product.get('Main Product Image', '')
+    more_image_1 = product.get('More Images 1', '')
+    more_image_2 = product.get('More Images 2', '')
+    more_image_3 = product.get('More Images 3', '')
+    
+    # Fallback to old field names for backwards compatibility
+    if not transparent_image:
+        transparent_image = product.get('Main Variant Image', '')
+    if not main_product_image:
+        main_product_image = transparent_image  # Use transparent as fallback
+    
+    # Collect gallery images
+    gallery_images = [img for img in [more_image_1, more_image_2, more_image_3] if img]
+    
     price = product.get('Variant Price', '$0.00')
     compare_price = product.get('Variant Compare-at Price', '')
     categories = parse_categories(product.get('Product Categories', ''))
@@ -152,13 +193,34 @@ def create_product_page(handle, product, output_dir):
         html
     )
     
-    # Update main image
-    if main_image:
+    # Update MAIN PRODUCT IMAGE (the big hero image)
+    if main_product_image:
+        # Update the main hero image in product-header8_main-image
+        # Pattern: src="" ... class="product-header8_main-image"
         html = re.sub(
-            r'src=""[^>]*class="[^"]*w-dyn-bind-empty[^"]*image[^"]*"',
-            f'src="{escape(main_image)}" alt="{escape(name)}"',
+            r'(<img\s+src=")([^"]*)"(\s+[^>]*class="[^"]*product-header8_main-image[^"]*")',
+            f'\\1{escape(main_product_image)}"\\3',
             html
         )
+        # Also update the larger image section if it exists (image-5 class)
+        html = re.sub(
+            r'(<img[^>]+src=")([^"]*)"([^>]*class="[^"]*image-5[^"]*")',
+            f'\\1{escape(main_product_image)}"\\3',
+            html
+        )
+    
+    # Update GALLERY IMAGES (the 3 small images at bottom)
+    if gallery_images:
+        for idx, img_url in enumerate(gallery_images):
+            # Pattern matches: <img src="" ... class="product-header8_image">
+            # We need to replace each occurrence sequentially
+            pattern = r'(<img\s+src=")([^"]*)"(\s+[^>]*class="[^"]*product-header8_image[^"]*")'
+            html = re.sub(
+                pattern,
+                f'\\1{escape(img_url)}"\\3',
+                html,
+                count=1  # Replace one at a time in order
+            )
     
     # Update price
     html = re.sub(
@@ -168,11 +230,28 @@ def create_product_page(handle, product, output_dir):
         count=1
     )
     
-    # Update description
-    clean_description = strip_html_tags(description)
+    # Update description (in the accordion section)
+    clean_description = strip_html_tags(description) if description else "No description available."
+    html = re.sub(
+        r'(<div class="accordion-item-content no-padding">[\s]*)<p></p>([\s]*</div>)',
+        f'\\1<p>{escape(clean_description)}</p>\\2',
+        html,
+        count=1
+    )
+    
+    # Update ingredients (in the accordion section)
+    clean_ingredients = strip_html_tags(ingredients) if ingredients else "Ingredients not specified."
+    html = re.sub(
+        r'(<div class="accordion-item-content no-padding">[\s]*)<div class="w-richtext"></div>',
+        f'\\1<div class="w-richtext"><p>{escape(clean_ingredients)}</p></div>',
+        html,
+        count=1
+    )
+    
+    # Also update the product header description if it exists
     html = re.sub(
         r'<p[^>]*class="[^"]*text-size-small w-dyn-bind-empty[^"]*"[^>]*></p>',
-        f'<p class="text-size-small">{escape(clean_description)}</p>',
+        f'<p class="text-size-small">{escape(clean_description[:200])}...</p>',
         html,
         count=1
     )

@@ -39,12 +39,31 @@ def load_products():
         main = variants[0].copy()
         main['variants'] = variants
         
-        # Look through all variants to find an .avif image
+        # Look through all variants to find best images
+        # Priority: Transparent Product Image > Main Product Image > Main Variant Image (.avif)
         for variant in variants:
-            image = variant.get('Main Variant Image', '').strip()
-            if image and image.lower().endswith('.avif'):
-                main['Main Variant Image'] = image
+            # Check for Transparent Product Image first
+            transparent_img = variant.get('Transparent Product Image', '').strip()
+            if transparent_img and transparent_img.lower().endswith('.avif'):
+                main['Transparent Product Image'] = transparent_img
                 break
+        
+        # If no transparent image, look for Main Variant Image
+        if not main.get('Transparent Product Image'):
+            for variant in variants:
+                image = variant.get('Main Variant Image', '').strip()
+                if image and image.lower().endswith('.avif'):
+                    main['Main Variant Image'] = image
+                    break
+        
+        # Also collect other image fields from first variant with data
+        for variant in variants:
+            if not main.get('Main Product Image') and variant.get('Main Product Image'):
+                main['Main Product Image'] = variant.get('Main Product Image')
+            if not main.get('Product Description') and variant.get('Product Description'):
+                main['Product Description'] = variant.get('Product Description')
+            if not main.get('Product Ingredients') and variant.get('Product Ingredients'):
+                main['Product Ingredients'] = variant.get('Product Ingredients')
         
         result[handle] = main
     
@@ -57,7 +76,10 @@ def create_product_slides(products):
     # Filter products to only include those with .avif images (exclude image17)
     filtered_products = []
     for handle, product in products.items():
-        image = product.get('Main Variant Image', '').strip()
+        # Try new field first, fallback to old field
+        image = product.get('Transparent Product Image', '').strip()
+        if not image:
+            image = product.get('Main Variant Image', '').strip()
         
         # Skip if no image
         if not image:
@@ -78,7 +100,10 @@ def create_product_slides(products):
     # Create one slide per filtered product
     for slide_idx, (handle, product) in enumerate(filtered_products):
         name = product.get('Product Name', '')
-        image = product.get('Main Variant Image', '')
+        # Use Transparent Product Image for slider, fallback to Main Variant Image
+        image = product.get('Transparent Product Image', '').strip()
+        if not image:
+            image = product.get('Main Variant Image', '')
         description = product.get('Product Description', '')
         
         # Determine arrow placement for this slide

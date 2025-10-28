@@ -24,11 +24,14 @@ import sys, json, csv
 data = json.load(sys.stdin)
 records = data.get('records', [])
 
-# Define CSV columns (matching your existing CSV structure)
+# Define CSV columns (matching your existing CSV structure + new image fields)
 columns = [
     'Products Collection ID', 'Product ID', 'Variants Collection ID', 'Variant ID',
     'Product Handle', 'Product Name', 'Product Type', 'Product Description',
-    'Product Categories', 'Main Variant Image', 'More Variant Images',
+    'Product Ingredients', 'Product Categories', 
+    'Main Variant Image', 'Transparent Product Image', 'Main Product Image',
+    'More Images 1', 'More Images 2', 'More Images 3',
+    'More Variant Images',
     'Variant Price', 'Variant Compare-at Price', 'Product Tax Class',
     'Variant Sku', 'Variant Inventory', 'Requires Shipping', 'Variant Weight',
     'Variant Width', 'Variant Height', 'Variant Length', 'Variant Download Name',
