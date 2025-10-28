@@ -79,6 +79,7 @@ def create_product_slides(products):
     for slide_idx, (handle, product) in enumerate(filtered_products):
         name = product.get('Product Name', '')
         image = product.get('Main Variant Image', '')
+        description = product.get('Product Description', '')
         
         # Determine arrow placement for this slide
         left_arrow = ""
@@ -100,6 +101,11 @@ def create_product_slides(products):
         else:
             right_arrow = '\n                  <div class="arrow-right"></div>'
         
+        # Build description HTML if available
+        description_html = ''
+        if description:
+            description_html = f'<div class="product-description">{escape(description)}</div>'
+        
         slide_html = f'''
               <div class="product-slide w-slide">
                 <div class="product-wrap">
@@ -108,6 +114,7 @@ def create_product_slides(products):
                           <div class="product-card">
                             <div class="title-wrap">
                               <h1 class="slider-product-title">{escape(name)}</h1>
+                              {description_html}
                             </div>
                             <div class="w-layout-hflex hflex">
                               <a href="products/{escape(handle)}.html" class="product-base w-inline-block"><img src="{escape(image)}" alt="{escape(name)}" class="product-image"></a>
