@@ -126,6 +126,13 @@ def create_product_page(handle, product, output_dir):
     # Replace template placeholders
     html = template
     
+    # Fix CSS paths for subdirectory (products are in products/ folder)
+    html = html.replace('href="css/', 'href="../css/')
+    html = html.replace('src="js/', 'src="../js/')
+    html = html.replace('href="images/', 'href="../images/')
+    html = html.replace('src="images/', 'src="../images/')
+    html = html.replace('href="index.html"', 'href="../index.html"')
+    
     # Update title and meta
     html = html.replace('<title>Outlaw Spice 2025</title>', f'<title>{escape(name)} | Outlaw Spice</title>')
     
@@ -196,6 +203,13 @@ def create_recipe_page(recipe, output_dir):
     
     # Replace template placeholders
     html = template
+    
+    # Fix CSS paths for subdirectory (recipes are in recipes/ folder)
+    html = html.replace('href="css/', 'href="../css/')
+    html = html.replace('src="js/', 'src="../js/')
+    html = html.replace('href="images/', 'href="../images/')
+    html = html.replace('src="images/', 'src="../images/')
+    html = html.replace('href="index.html"', 'href="../index.html"')
     
     # Update title
     html = html.replace('<title>Outlaw Spice 2025</title>', f'<title>{escape(name)} | Outlaw Spice</title>')
