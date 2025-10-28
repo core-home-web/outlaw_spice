@@ -9,8 +9,17 @@ from collections import defaultdict
 from html import escape
 
 # Paths
-PRODUCTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Products.csv"
-INDEX_HTML = "/Users/elombe.kisala/Library/Mobile Documents/com~apple~CloudDocs/Work - Core Home/CORE HOME/Brands : Projects/SPICES/Outlaw Spice/outlaw-spice-website/index.html"
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+AIRTABLE_EXPORTS = os.path.join(BASE_DIR, "airtable_exports")
+
+# Use Airtable exports if available, otherwise use original CSV
+if os.path.exists(os.path.join(AIRTABLE_EXPORTS, "products.csv")):
+    PRODUCTS_CSV = os.path.join(AIRTABLE_EXPORTS, "products.csv")
+else:
+    PRODUCTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Products.csv"
+
+INDEX_HTML = os.path.join(BASE_DIR, "index.html")
 
 def load_products():
     """Load and group products by Product Handle"""

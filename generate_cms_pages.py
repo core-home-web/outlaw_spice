@@ -11,9 +11,23 @@ from html import escape
 from collections import defaultdict
 
 # Paths
-PRODUCTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Products.csv"
-RECIPES_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Recipes (1).csv"
-INGREDIENTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Ingredients.csv"
+# Check if Airtable exports exist (from sync), otherwise use original CSVs
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+AIRTABLE_EXPORTS = os.path.join(BASE_DIR, "airtable_exports")
+
+if os.path.exists(os.path.join(AIRTABLE_EXPORTS, "products.csv")):
+    # Use Airtable exports if available
+    PRODUCTS_CSV = os.path.join(AIRTABLE_EXPORTS, "products.csv")
+    RECIPES_CSV = os.path.join(AIRTABLE_EXPORTS, "recipes.csv")
+    INGREDIENTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Ingredients.csv"  # Still from original
+    print("📡 Using Airtable exports")
+else:
+    # Fall back to original CSVs
+    PRODUCTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Products.csv"
+    RECIPES_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Recipes (1).csv"
+    INGREDIENTS_CSV = "/Users/elombe.kisala/Downloads/Outlaw Spice 2025 - Ingredients.csv"
+    print("📁 Using original CSV files")
 TEMPLATE_DIR = "/Users/elombe.kisala/Library/Mobile Documents/com~apple~CloudDocs/Work - Core Home/CORE HOME/Brands : Projects/SPICES/Outlaw Spice/outlaw-spice-website"
 OUTPUT_DIR = TEMPLATE_DIR
 
