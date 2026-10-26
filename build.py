@@ -299,7 +299,7 @@ def home():
 <section class="section">
   <div class="wrap">
     <div class="section__head">
-      <div><span class="eyebrow">Fan Favorites</span><h2 class="h2">Pick Your <span class="ember">Poison</span></h2></div>
+      <div><span class="eyebrow">Fan Favorites</span><h2 class="h2">Pick Your <span class="ember">Flavor</span></h2></div>
       <a class="link-arrow" href="/products/">See all 11 blends <span>→</span></a>
     </div>
     <div class="grid grid--products">{"".join(product_card(p) for p in featured)}</div>
