@@ -68,11 +68,13 @@ def main():
             save(img, OUT / "products" / f"{slug}-{n}.webp", 900, 82)
             if n == 1:
                 save(img, OUT / "products" / f"{slug}-1-480.webp", 480, 82)
-    # Transparent jar cutouts for the homepage slider (keep alpha).
+    # Transparent jar cutouts for the homepage slider (keep alpha), from the Real-ESRGAN
+    # 4x masters (tools/upscale_cutouts.py). 700px and 1400px tall for 1x / 2x screens.
     for pid, slug in PRODUCTS.items():
-        cut = Image.open(SRC / "products" / "cutouts" / f"{pid}.avif").convert("RGBA")
-        dest = OUT / "products" / f"{slug}-cutout.webp"
-        cut.save(dest, "WEBP", quality=90, method=6)
+        cut = Image.open(SRC / "products" / "cutouts-4x" / f"{pid}.webp").convert("RGBA")
+        for h in (700, 1400):
+            w = round(cut.width * h / cut.height)
+            cut.resize((w, h), Image.LANCZOS).save(OUT / "products" / f"{slug}-cutout-{h}.webp", "WEBP", quality=86, method=6)
     logo = Image.open(SRC / "logo/outlaw-spices-logo-white.png")
     save(logo, OUT / "logo-white.webp", 900, 90)
     logo.save(OUT / "logo-white.png", optimize=True)

@@ -5,7 +5,7 @@ Needs PyTorch and the RealESRGAN_x4plus.pth weights
 
     python3 tools/upscale_cutouts.py path/to/RealESRGAN_x4plus.pth
 
-Reads brand-assets/products/cutouts/<id>.avif, writes brand-assets/products/cutouts-4x/<id>.png.
+Reads brand-assets/products/cutouts/<id>.avif, writes brand-assets/products/cutouts-4x/<id>.webp.
 Colour goes through the model; the alpha mask is resized with Lanczos so the jar's
 silhouette stays exactly as cut. Then run tools/optimize_images.py to make the web copies.
 """
@@ -107,7 +107,7 @@ def main(weights):
         rgb.paste(im.convert("RGB"), mask=alpha)
         big = upscale_rgb(model, rgb)
         big.putalpha(alpha.resize(big.size, Image.LANCZOS))
-        big.save(OUT / f"{src.stem}.png", optimize=True)
+        big.save(OUT / f"{src.stem}.webp", "WEBP", quality=95, method=6)
         print(src.stem, big.size, flush=True)
 
 
