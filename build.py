@@ -219,6 +219,42 @@ def chips(target, options):
     return f'<div class="filters" data-target="{target}" role="group" aria-label="Filter">{btns}</div>'
 
 
+# "What's on the pit?" photo panels: an accordion on desktop, a swipe carousel on mobile.
+PIT_PANELS = {
+    "Beef": ("steaks-dark", "Steaks, brisket, burgers & jerky"),
+    "Pork": ("ribs", "Ribs, shoulders, chops & belly"),
+    "Poultry": ("kebabs", "Wings, thighs, skewers & the whole bird"),
+    "Seafood": ("shrimp", "Shrimp, salmon & anything that swims"),
+    "Veggies": ("veggies", "Peppers, corn, potatoes & every side"),
+}
+
+
+def pit_panels():
+    out = []
+    for i, (pit, (photo, cuts)) in enumerate(PIT_PANELS.items()):
+        blends = [p for p in PRODUCTS if pit in pits_for(p)]
+        n = len(blends)
+        jars = "".join(
+            '<li><a href="/products/{0}" title="{1}"><img src="/assets/img/products/{0}-1-480.webp" alt="{1}" '
+            'loading="lazy" width="96" height="96"></a></li>'.format(p["slug"], escape(p["name"]))
+            for p in blends[:5]
+        )
+        more = f'<li class="pit__more">+{n - 5}</li>' if n > 5 else ""
+        noun = "blend" if n == 1 else "blends"
+        out.append(f"""<article class="pit{' is-active' if i == 0 else ''}" data-pit="{pit}">
+  <div class="pit__media">{img(photo, "", sizes="(max-width: 860px) 84vw, 62vw")}</div>
+  <span class="pit__num">{i + 1:02d}</span>
+  <span class="pit__label" aria-hidden="true">{pit}</span>
+  <div class="pit__content">
+    <h3 class="pit__title">{pit}</h3>
+    <p class="pit__cuts">{escape(cuts)}</p>
+    <ul class="pit__jars" aria-label="{pit} blends">{jars}{more}</ul>
+    <a class="btn pit__cta" href="/products/#{pit}">Shop {n} {pit.lower().rstrip("s") if pit == "Veggies" else pit.lower()} {noun} <span aria-hidden="true">→</span></a>
+  </div>
+</article>""")
+    return "".join(out)
+
+
 # ---------------------------------------------------------------- pages
 
 def home():
@@ -226,12 +262,7 @@ def home():
     strip_words = ["Gluten Free", "Kosher Certified", "Born for the Pit", "11 Bold Blends", "Low & Slow",
                    "Hot & Fast", "Seasoned Like No Other"]
     strip = "".join(f'<span class="strip__item">{escape(w)}</span>' for w in strip_words * 2)
-    pit_imgs = {"Beef": "sliced-steak", "Pork": "ribs", "Poultry": "kebabs", "Seafood": "shrimp", "Veggies": "veggies"}
-    picker = "".join(
-        f'<a href="/products/#{pit}" style="background-image:url(/assets/img/{pit_imgs[pit]}-900.webp)">'
-        f'<span class="h3">{pit}</span><small>{sum(pit in pits_for(p) for p in PRODUCTS)} blends →</small></a>'
-        for pit in PITS
-    )
+    picker = pit_panels()
     temps = [
         ("Brisket", 203, "Probe-tender, rest 1 hr+", "Pit 225–275°F"),
         ("Pork Shoulder", 200, "Bone pulls clean", "Pit 225–250°F"),
@@ -300,7 +331,12 @@ def home():
       <div><span class="eyebrow">Match Your Meat</span><h2 class="h2">What's on <span class="ember">the Pit?</span></h2></div>
       <p class="lede">Tell us what you're cooking. We'll tell you what to shake on it.</p>
     </div>
-    <div class="picker reveal">{picker}</div>
+  </div>
+  <div class="pits" id="pits">{picker}</div>
+  <div class="wrap pits__nav" aria-hidden="true">
+    <div class="pits__progress"><span></span></div>
+    <span class="pits__count"><b>01</b> / {len(PITS):02d}</span>
+    <span class="pits__hint">Swipe →</span>
   </div>
 </section>
 

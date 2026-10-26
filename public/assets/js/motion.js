@@ -211,13 +211,28 @@
       });
     })));
 
-    // Protein picker tiles wipe up one by one.
-    const picker = document.querySelector(".picker");
-    if (picker) {
-      gsap.from(picker.children, {
-        clipPath: "inset(100% 0 0 0)", duration: 1.1, ease: "expo.out", stagger: 0.09,
-        scrollTrigger: { trigger: picker, start: "top 85%", once: true },
+    // Pit panels rise in, then the open panel's photo follows the pointer.
+    const pitsEl = document.getElementById("pits");
+    if (pitsEl) {
+      // fromTo + clearProps: on mobile, CSS also drives these cards' opacity/scale, so hand control back after.
+      gsap.fromTo(pitsEl.children, { yPercent: 18, autoAlpha: 0 }, {
+        yPercent: 0, autoAlpha: 1, duration: 1.2, ease: "expo.out", stagger: 0.08,
+        clearProps: "opacity,visibility,transform",
+        scrollTrigger: { trigger: pitsEl, start: "top 85%", once: true },
       });
+      if (window.matchMedia("(hover: hover) and (min-width: 861px)").matches) {
+        $$(".pit", pitsEl).forEach((panel) => {
+          const media = panel.querySelector(".pit__media");
+          const x = gsap.quickTo(media, "xPercent", { duration: 0.9, ease: "power3" });
+          const y = gsap.quickTo(media, "yPercent", { duration: 0.9, ease: "power3" });
+          panel.addEventListener("mousemove", (e) => {
+            const r = panel.getBoundingClientRect();
+            x(((e.clientX - r.left) / r.width - 0.5) * -3);
+            y(((e.clientY - r.top) / r.height - 0.5) * -3);
+          });
+          panel.addEventListener("mouseleave", () => { x(0); y(0); });
+        });
+      }
     }
 
     // Temperatures count up; stats and values rise in.
