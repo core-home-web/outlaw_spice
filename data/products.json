@@ -107,7 +107,7 @@
     "best_on": ["Chicken", "Salmon", "Burgers"],
     "price": null,
     "accent": "#ef7f3c",
-    "featured": false,
+    "featured": true,
     "short": "Big hickory-smoke flavor in a jar — wood-fired taste even on a gas grill.",
     "description": "No smoker? No problem. Where There's Hickory Smoke… brings that unmistakable hickory, wood-fired flavor to whatever you're cooking — gas grill, oven or cast iron. Gorgeous on chicken, salmon and burgers, and it takes a real smoker cook straight over the top.",
     "how_to": [
@@ -146,7 +146,7 @@
     "best_on": ["Pork", "Chicken", "Turkey"],
     "price": null,
     "accent": "#9bc53d",
-    "featured": false,
+    "featured": true,
     "short": "Orchard-sweet apple and honey. A gentle, golden rub that pork was born for.",
     "description": "Apple and pork go together like a fiddle and a barn dance. This sweet, mellow rub brings orchard apple and golden honey notes that glaze up beautifully on chops, tenderloin, ribs and poultry. Pair it with apple or cherry wood and invite the whole county.",
     "how_to": [

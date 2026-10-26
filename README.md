@@ -8,6 +8,7 @@ Static BBQ brand site deployed on Cloudflare Workers (static assets).
 | --- | --- |
 | `public/` | **The deployed site.** Generated HTML + `assets/` (CSS, JS, WebP images, video). |
 | `data/products.json` | The 11 blends: name, label tagline, net weight, heat, flavor, copy, how-to. `price` is `null` (hidden) until set, e.g. `"$12.99"`. |
+| | Set `"featured": true` on the blends you want in the homepage hero slider (order follows the file). |
 | `data/recipes.json` | Recipes, each tied to a blend and a photo in `public/assets/img/`. |
 | `build.py` | Renders every page in `public/` from the JSON. |
 | `tools/optimize_images.py` | Turns originals in `brand-assets/` into web-sized WebP in `public/assets/img/`. |

@@ -71,6 +71,126 @@ if (window.OS_MOTION) {
   reveals.forEach((el) => el.classList.add("in"));
 }
 
+// Homepage hero slider. Autoplay is driven by the active dot's CSS progress animation,
+// so pausing that animation (hover, focus, hidden tab) also pauses the slider.
+const hs = document.getElementById("hero");
+if (hs && hs.classList.contains("hs")) {
+  const slides = Array.from(hs.querySelectorAll(".hs__slide"));
+  const dots = Array.from(hs.querySelectorAll(".hs__dot"));
+  const gsap = window.OS_MOTION && window.gsap;
+  let index = 0;
+  let busy = false;
+
+  const parts = (slide) => ({
+    copy: slide.querySelectorAll(".hs__eyebrow, .hs__tag, .hs__name, .hs__desc, .hs__meta, .hero__ctas"),
+    jar: slide.querySelector(".hs__jar"),
+    ghost: slide.querySelector(".hs__ghost"),
+    shadow: slide.querySelector(".hs__shadow"),
+  });
+
+  const animateIn = (slide, dir = 1, delay = 0) => {
+    if (!gsap) return;
+    const { copy, jar, ghost, shadow } = parts(slide);
+    gsap.timeline({ delay })
+      .fromTo(jar, { xPercent: 45 * dir, yPercent: 8, rotate: 16 * dir, autoAlpha: 0, scale: 0.86 },
+        { xPercent: 0, yPercent: 0, rotate: 0, autoAlpha: 1, scale: 1, duration: 1.15, ease: "expo.out" }, 0)
+      .fromTo(ghost, { xPercent: 18 * dir, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 0.7, duration: 1.4, ease: "expo.out" }, 0.05)
+      .fromTo(shadow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.9, ease: "power3.out" }, 0.2)
+      .fromTo(copy, { y: 38, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.85, ease: "power3.out", stagger: 0.07 }, 0.12);
+  };
+
+  const animateOut = (slide, dir) => {
+    const { copy, jar, ghost, shadow } = parts(slide);
+    return gsap.timeline()
+      .to(jar, { xPercent: -40 * dir, rotate: -12 * dir, autoAlpha: 0, scale: 0.9, duration: 0.55, ease: "power3.in" }, 0)
+      .to(ghost, { xPercent: -14 * dir, autoAlpha: 0, duration: 0.5, ease: "power2.in" }, 0)
+      .to(shadow, { autoAlpha: 0, duration: 0.3 }, 0)
+      .to(copy, { y: -22, autoAlpha: 0, duration: 0.35, ease: "power2.in", stagger: 0.03 }, 0);
+  };
+
+  const go = (next, dir) => {
+    next = (next + slides.length) % slides.length;
+    if (next === index || busy) return;
+    if (dir === undefined) dir = next > index ? 1 : -1;
+    const prev = slides[index];
+    const incoming = slides[next];
+    dots.forEach((d, i) => {
+      d.classList.toggle("is-active", i === next);
+      d.classList.toggle("is-done", i < next);
+      if (i === next) d.setAttribute("aria-current", "true");
+      else d.removeAttribute("aria-current");
+    });
+    hs.style.setProperty("--accent", incoming.dataset.accent);
+    index = next;
+    const swap = () => {
+      prev.classList.remove("is-active");
+      prev.setAttribute("aria-hidden", "true");
+      incoming.classList.add("is-active");
+      incoming.removeAttribute("aria-hidden");
+    };
+    if (!gsap) return swap();
+    busy = true;
+    animateOut(prev, dir).eventCallback("onComplete", () => {
+      swap();
+      animateIn(incoming, dir);
+      busy = false;
+    });
+  };
+
+  hs.querySelector(".hs__next").addEventListener("click", () => go(index + 1, 1));
+  hs.querySelector(".hs__prev").addEventListener("click", () => go(index - 1, -1));
+  dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
+  dots.forEach((d) => d.querySelector(".hs__dot-bar i").addEventListener("animationend", () => {
+    if (d.classList.contains("is-active")) go(index + 1, 1);
+  }));
+
+  // Pause while the visitor is reading, interacting, or away; also hold until the intro has played.
+  const pause = new Set();
+  const setPaused = (reason, on) => {
+    on ? pause.add(reason) : pause.delete(reason);
+    hs.classList.toggle("is-paused", pause.size > 0);
+  };
+  const stage = hs.querySelector(".hs__stage");
+  stage.addEventListener("mouseenter", () => setPaused("hover", true));
+  stage.addEventListener("mouseleave", () => setPaused("hover", false));
+  // Keyboard focus pauses; a mouse click on an arrow shouldn't stop autoplay.
+  stage.addEventListener("focusin", (e) => e.target.matches(":focus-visible") && setPaused("focus", true));
+  stage.addEventListener("focusout", () => setPaused("focus", false));
+  document.addEventListener("visibilitychange", () => setPaused("hidden", document.hidden));
+  if (document.documentElement.classList.contains("intro-on")) {
+    setPaused("intro", true);
+    document.addEventListener("intro:done", () => setPaused("intro", false), { once: true });
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => setPaused("offscreen", !e.isIntersecting)).observe(hs);
+  }
+
+  // Keyboard arrows while the slider is on screen, swipe on touch.
+  document.addEventListener("keydown", (e) => {
+    if (pause.has("offscreen") || /input|textarea/i.test(document.activeElement.tagName)) return;
+    if (e.key === "ArrowRight") go(index + 1, 1);
+    if (e.key === "ArrowLeft") go(index - 1, -1);
+  });
+  let startX = null, startY = null;
+  stage.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) go(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    startX = null;
+  }, { passive: true });
+
+  window.OSHero = {
+    enter() {
+      const wrap = hs.querySelector(".hs__slides");
+      wrap.style.animation = "none"; // cancel the CSS failsafe
+      wrap.style.opacity = "1";
+      animateIn(slides[index], 1, 0.1);
+    },
+  };
+}
+
 // "What's on the pit?" panels: hover/focus/tap to expand on desktop, swipe carousel on mobile.
 const pits = document.getElementById("pits");
 if (pits) {
