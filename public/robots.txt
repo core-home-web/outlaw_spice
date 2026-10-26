@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://outlawspice.com/sitemap.xml

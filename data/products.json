@@ -1,0 +1,216 @@
+[
+  {
+    "slug": "roadhouse-rub",
+    "name": "Roadhouse Rub",
+    "tagline": "Saddle Up",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 2,
+    "profile": ["Savory", "Peppery"],
+    "best_on": ["Beef", "Pork", "Burgers"],
+    "price": null,
+    "accent": "#e2733a",
+    "featured": true,
+    "short": "The everyday workhorse. Coarse, peppery and built to put a crust on anything that hits the grate.",
+    "description": "Roadhouse Rub is the jar you reach for first. A bold, savory all-purpose rub with a coarse grind that grabs onto beef and pork and turns into a deep, crackling bark over live fire. Steaks, burgers, chops, tri-tip, smash burgers on the flat-top — saddle up.",
+    "how_to": [
+      "Pat meat dry and coat evenly on all sides — about 1 tbsp per pound.",
+      "Let it sit 15 minutes (or overnight in the fridge for thick cuts) so the rub sweats in.",
+      "Sear hot for a crust, or run it low & slow for a heavy bark."
+    ]
+  },
+  {
+    "slug": "cowboy-coffee-rub",
+    "name": "Cowboy Coffee Rub",
+    "tagline": "Brewed & Broiled",
+    "net_weight": "11 oz | 311 g",
+    "heat": 2,
+    "profile": ["Savory", "Earthy"],
+    "best_on": ["Beef", "Brisket", "Game"],
+    "price": null,
+    "accent": "#c8925a",
+    "featured": true,
+    "short": "Dark, roasty and rich. A coffee-forward rub made for steaks and big cuts of beef.",
+    "description": "Coffee and beef have been riding together since the trail drives. Cowboy Coffee Rub brings a dark, roasty depth that caramelizes into a near-black crust on ribeyes, tri-tip and brisket. Rich without being bitter — the kind of flavor that makes people ask what you did.",
+    "how_to": [
+      "Season steaks generously right before they hit a screaming-hot grate.",
+      "For brisket, layer it over a base of coarse salt and black pepper.",
+      "Rest your meat — the crust sets up while the juices settle."
+    ]
+  },
+  {
+    "slug": "nashville-hot-chicken",
+    "name": "Nashville Hot Chicken Seasoning",
+    "short_name": "Nashville Hot",
+    "tagline": "Who You Callin' Chicken?",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 5,
+    "profile": ["Hot", "Smoky"],
+    "best_on": ["Chicken", "Wings", "Shrimp"],
+    "price": null,
+    "accent": "#e8542a",
+    "featured": true,
+    "short": "Fire-red and unapologetic. Real Nashville heat for wings, thighs and anything brave.",
+    "description": "This is the one that makes people sweat. Nashville Hot brings a deep, red-pepper burn with a little smoke and a little sweet to keep you coming back. Dust it on grilled wings, whisk it into hot oil for a classic hot-chicken baste, or hit some shrimp skewers and watch the cooler empty.",
+    "how_to": [
+      "Season chicken all over and let it rest 30 minutes before cooking.",
+      "For the classic finish: whisk 2 tbsp into ½ cup hot oil and brush on right off the grill.",
+      "Serve with pickles and white bread. That's the law."
+    ]
+  },
+  {
+    "slug": "kansas-city-best",
+    "name": "Kansas City's Best Seasoning",
+    "short_name": "Kansas City's Best",
+    "tagline": "Put the Sass in Kansas",
+    "net_weight": "11 oz | 311 g",
+    "heat": 1,
+    "profile": ["Sweet", "Smoky"],
+    "best_on": ["Ribs", "Pork", "Chicken"],
+    "price": null,
+    "accent": "#d4365c",
+    "featured": true,
+    "short": "Sweet, smoky KC-style rub that lacquers ribs into sticky, glossy bark.",
+    "description": "Kansas City barbecue is all about the sweet-smoky balance, and this blend nails it. Caramel sweetness up front, a warm, smoky middle and just enough tang to keep things lively. Built for ribs and burnt ends, and right at home on pulled pork and grilled chicken.",
+    "how_to": [
+      "Apply a thin binder (mustard or oil) and coat ribs on both sides.",
+      "Smoke at 250°F until the bark sets and won't smear.",
+      "Glaze with your favorite sauce for the last 30 minutes."
+    ]
+  },
+  {
+    "slug": "whole-hog",
+    "name": "Whole Hog Seasoning",
+    "tagline": "Leave Nothin' Behind",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 2,
+    "profile": ["Savory", "Herby"],
+    "best_on": ["Pork Shoulder", "Ribs", "Chops"],
+    "price": null,
+    "accent": "#9fb8d6",
+    "featured": false,
+    "short": "Savory, herby and built for pork from snout to tail — especially pulled pork.",
+    "description": "Whole Hog Seasoning is made for the long cook. A savory, herb-flecked blend that builds a beautiful bark on pork butt and seasons all the way through when you pull it. Leave nothin' behind — it's just as good on chops, tenderloin and sausage patties.",
+    "how_to": [
+      "Season pork shoulder heavily the night before.",
+      "Smoke at 225–250°F until probe-tender, around 200°F internal.",
+      "Pull, then hit it with another shake to wake up the flavor."
+    ]
+  },
+  {
+    "slug": "where-theres-hickory-smoke",
+    "name": "Where There's Hickory Smoke…",
+    "short_name": "Hickory Smoke",
+    "tagline": "What a Smokeshow",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 1,
+    "profile": ["Smoky", "Savory"],
+    "best_on": ["Chicken", "Salmon", "Burgers"],
+    "price": null,
+    "accent": "#ef7f3c",
+    "featured": false,
+    "short": "Big hickory-smoke flavor in a jar — wood-fired taste even on a gas grill.",
+    "description": "No smoker? No problem. Where There's Hickory Smoke… brings that unmistakable hickory, wood-fired flavor to whatever you're cooking — gas grill, oven or cast iron. Gorgeous on chicken, salmon and burgers, and it takes a real smoker cook straight over the top.",
+    "how_to": [
+      "Season evenly and let it sit while the grill heats.",
+      "Great on salmon: skin-side down, medium heat, don't flip early.",
+      "Shake into ground beef before you form burger patties."
+    ]
+  },
+  {
+    "slug": "sweet-and-spicy",
+    "name": "Sweet & Spicy Seasoning",
+    "short_name": "Sweet & Spicy",
+    "tagline": "It's Getting Hot in Here",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 3,
+    "profile": ["Sweet", "Hot"],
+    "best_on": ["Pork", "Chicken", "Wings"],
+    "price": null,
+    "accent": "#e0629a",
+    "featured": false,
+    "short": "Sweet heat that caramelizes on contact. Candy on the front, kick on the back.",
+    "description": "Sugar and chile, the oldest love story in barbecue. Sweet & Spicy goes on bright red and caramelizes into a sticky, slightly charred glaze, with a heat that builds slow and stays friendly. A crowd favorite on pork belly burnt ends, wings and kebabs.",
+    "how_to": [
+      "Season and cook over medium heat — the sugar likes it moderate.",
+      "Move to indirect heat if it darkens too fast.",
+      "Toss wings in melted butter + a shake right before serving."
+    ]
+  },
+  {
+    "slug": "apple-honey-hoedown",
+    "name": "Apple & Honey Hoedown",
+    "tagline": "Pork's Best Mate",
+    "net_weight": "12 oz | 340 g",
+    "heat": 1,
+    "profile": ["Sweet", "Fruity"],
+    "best_on": ["Pork", "Chicken", "Turkey"],
+    "price": null,
+    "accent": "#9bc53d",
+    "featured": false,
+    "short": "Orchard-sweet apple and honey. A gentle, golden rub that pork was born for.",
+    "description": "Apple and pork go together like a fiddle and a barn dance. This sweet, mellow rub brings orchard apple and golden honey notes that glaze up beautifully on chops, tenderloin, ribs and poultry. Pair it with apple or cherry wood and invite the whole county.",
+    "how_to": [
+      "Season chops or tenderloin and let rest 20 minutes.",
+      "Cook over medium heat; finish with a brush of butter.",
+      "Spritz smoked pork with apple juice to double down."
+    ]
+  },
+  {
+    "slug": "hoppin-honey-mustard",
+    "name": "Hoppin' Honey Mustard",
+    "tagline": "Sweet n' Tangy",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 1,
+    "profile": ["Tangy", "Sweet"],
+    "best_on": ["Chicken", "Pork", "Seafood"],
+    "price": null,
+    "accent": "#f2b53a",
+    "featured": false,
+    "short": "Golden honey-mustard tang. Bright on chicken, killer on pork and fish.",
+    "description": "Bright, tangy mustard meets mellow honey sweetness in a golden blend that lights up the plate. Hoppin' Honey Mustard is our go-to for grilled chicken breasts, pork tenderloin and white fish — and it makes a mean dipping sauce stirred into mayo.",
+    "how_to": [
+      "Coat chicken or fish and grill over medium-high heat.",
+      "Stir 1 tbsp into ½ cup mayo for an instant dipping sauce.",
+      "Sprinkle on roasted potatoes in the last 10 minutes."
+    ]
+  },
+  {
+    "slug": "ranch-hand",
+    "name": "Ranch Hand Seasoning",
+    "short_name": "Ranch Hand",
+    "tagline": "Wrangle-Worthy Flavor",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 1,
+    "profile": ["Herby", "Savory"],
+    "best_on": ["Veggies", "Chicken", "Potatoes"],
+    "price": null,
+    "accent": "#a9c4e8",
+    "featured": false,
+    "short": "Herby, garlicky ranch-style flavor for veggies, chicken and every side on the table.",
+    "description": "Every cookout needs a ranch hand. This savory, herb-packed blend brings cool ranch-style flavor to grilled veggies, chicken, potatoes and corn on the cob. It's also the secret to the best smoked wings dip you've ever had.",
+    "how_to": [
+      "Toss veggies in oil and a good shake, then grill hot and fast.",
+      "Season chicken and let it rest 15 minutes before grilling.",
+      "Mix into sour cream for an instant dip."
+    ]
+  },
+  {
+    "slug": "jerky-seasoning",
+    "name": "Jerky Seasoning",
+    "tagline": "No Jerks, All Jerky",
+    "net_weight": "11.5 oz | 326 g",
+    "heat": 2,
+    "profile": ["Savory", "Peppery"],
+    "best_on": ["Jerky", "Beef", "Game"],
+    "price": null,
+    "accent": "#e2557a",
+    "featured": false,
+    "short": "Savory, peppery and made for the smoker. Homemade jerky that beats the gas station.",
+    "description": "Make jerky worth bragging about. Our Jerky Seasoning brings a savory, peppery, slightly sweet profile designed for thin-sliced beef and game in the smoker or dehydrator. Also a sleeper hit on smash burgers and beef kebabs.",
+    "how_to": [
+      "Slice lean beef ¼\" thick against the grain.",
+      "Toss with seasoning and marinate overnight in the fridge.",
+      "Smoke or dehydrate at 160–175°F until it bends and cracks without snapping."
+    ]
+  }
+]

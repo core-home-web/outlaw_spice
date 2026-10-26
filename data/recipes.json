@@ -1,0 +1,227 @@
+[
+  {
+    "slug": "cowboy-coffee-ribeyes",
+    "title": "Cowboy Coffee Ribeyes",
+    "blend": "cowboy-coffee-rub",
+    "image": "hero-steaks",
+    "method": "Grill",
+    "category": "Beef",
+    "prep": "10 min",
+    "cook": "15 min",
+    "serves": 2,
+    "level": "Easy",
+    "summary": "Thick-cut ribeyes with a dark, roasty coffee crust, seared hard over a two-zone fire and finished with herb butter.",
+    "ingredients": [
+      "2 bone-in ribeyes, 1½\" thick",
+      "2–3 tbsp Cowboy Coffee Rub",
+      "1 tbsp neutral oil",
+      "3 tbsp butter",
+      "2 sprigs rosemary",
+      "2 garlic cloves, smashed"
+    ],
+    "steps": [
+      "Pull steaks from the fridge 30–45 minutes before cooking. Pat dry and season heavy on all sides with Cowboy Coffee Rub.",
+      "Build a two-zone fire: coals (or burners) on high on one side, nothing on the other. Clean and oil the grate.",
+      "Sear steaks over direct heat 2–3 minutes per side until a dark crust forms.",
+      "Move to the cool side, close the lid and cook to 125°F internal for medium-rare.",
+      "Melt butter with rosemary and garlic in a small pan on the grill. Spoon over the steaks and rest 8 minutes before slicing."
+    ],
+    "tip": "Coffee rubs darken fast. If the crust is getting there before the inside is, go indirect sooner."
+  },
+  {
+    "slug": "roadhouse-smoked-brisket",
+    "title": "Roadhouse Smoked Brisket",
+    "blend": "roadhouse-rub",
+    "image": "brisket-smoker",
+    "method": "Smoke",
+    "category": "Beef",
+    "prep": "30 min",
+    "cook": "10–12 hrs",
+    "serves": 12,
+    "level": "Pitmaster",
+    "summary": "A full packer brisket, low & slow over oak, with a bark so peppery and crisp it crackles when you slice it.",
+    "ingredients": [
+      "1 whole packer brisket, 12–14 lb",
+      "½ cup Roadhouse Rub",
+      "2 tbsp yellow mustard (binder)",
+      "Butcher paper",
+      "Apple cider vinegar for spritzing"
+    ],
+    "steps": [
+      "Trim the fat cap to about ¼\" and square off thin edges so nothing burns.",
+      "Smear a thin layer of mustard all over, then coat generously with Roadhouse Rub. Rest while the smoker comes to temp.",
+      "Smoke at 250°F fat-side up with oak or hickory. Spritz with vinegar every hour after the first three.",
+      "When the bark is set and internal temp stalls around 165°F, wrap tightly in butcher paper.",
+      "Keep cooking until it probes like butter, usually 200–205°F. Rest in a cooler wrapped in towels for at least 1 hour.",
+      "Slice the flat against the grain, pencil-thick. Cube the point for burnt ends."
+    ],
+    "tip": "Cook to feel, not just temperature. The probe should slide in with almost no resistance."
+  },
+  {
+    "slug": "kansas-city-sticky-ribs",
+    "title": "Kansas City Sticky Ribs",
+    "blend": "kansas-city-best",
+    "image": "ribs",
+    "method": "Smoke",
+    "category": "Pork",
+    "prep": "15 min",
+    "cook": "5–6 hrs",
+    "serves": 4,
+    "level": "Medium",
+    "summary": "St. Louis-cut spare ribs smoked low, wrapped with butter and honey, then lacquered with sauce until they shine.",
+    "ingredients": [
+      "2 racks St. Louis-cut spare ribs",
+      "⅓ cup Kansas City's Best Seasoning",
+      "2 tbsp yellow mustard",
+      "4 tbsp butter",
+      "¼ cup honey",
+      "1 cup your favorite BBQ sauce"
+    ],
+    "steps": [
+      "Remove the membrane from the back of each rack. Rub with mustard and season both sides with Kansas City's Best.",
+      "Smoke at 250°F for 3 hours, until the bark is set and doesn't smear.",
+      "Lay each rack on foil meat-side down over pats of butter and a drizzle of honey. Wrap tight and cook 1½–2 hours more.",
+      "Unwrap, brush with sauce and cook another 30 minutes until tacky.",
+      "Rest 10 minutes, then slice between the bones."
+    ],
+    "tip": "Do the bend test: lift the rack from one end with tongs. When it bends and the bark cracks, they're done."
+  },
+  {
+    "slug": "nashville-hot-shrimp-skewers",
+    "title": "Nashville Hot Shrimp Skewers",
+    "blend": "nashville-hot-chicken",
+    "image": "shrimp",
+    "method": "Grill",
+    "category": "Seafood",
+    "prep": "15 min",
+    "cook": "6 min",
+    "serves": 4,
+    "level": "Easy",
+    "summary": "Jumbo shrimp, hot and fast over open flame, then hit with a Nashville hot oil baste and fresh lime.",
+    "ingredients": [
+      "2 lb jumbo shrimp, peeled and deveined",
+      "2 tbsp Nashville Hot Chicken Seasoning, divided",
+      "¼ cup oil",
+      "1 tbsp honey",
+      "2 limes",
+      "Chopped cilantro to finish",
+      "Wooden skewers, soaked 30 min"
+    ],
+    "steps": [
+      "Toss shrimp with 1 tbsp of the seasoning and a splash of oil. Thread onto skewers.",
+      "Warm the remaining oil with the rest of the seasoning and the honey until it just shimmers.",
+      "Grill over high direct heat 2–3 minutes per side, until opaque and pink.",
+      "Brush with the hot oil, squeeze lime over the top and scatter cilantro."
+    ],
+    "tip": "Shrimp go from perfect to rubber in a minute. Pull them as soon as they curl into a loose C."
+  },
+  {
+    "slug": "apple-honey-pork-chops",
+    "title": "Apple & Honey Pork Chops",
+    "blend": "apple-honey-hoedown",
+    "image": "pork-chops",
+    "method": "Grill",
+    "category": "Pork",
+    "prep": "10 min",
+    "cook": "15 min",
+    "serves": 4,
+    "level": "Easy",
+    "summary": "Thick bone-in chops with an orchard-sweet glaze, grill-marked and juicy right to the bone.",
+    "ingredients": [
+      "4 bone-in pork chops, 1\" thick",
+      "2 tbsp Apple & Honey Hoedown",
+      "1 tbsp oil",
+      "2 tbsp butter, melted",
+      "1 tbsp apple cider vinegar",
+      "Fresh parsley to finish"
+    ],
+    "steps": [
+      "Rub chops with oil and season both sides with Apple & Honey Hoedown. Rest 20 minutes.",
+      "Grill over medium-high heat 4–5 minutes per side, rotating 45° halfway for cross-hatch marks.",
+      "Pull at 140°F internal. Carryover takes them to a juicy 145°F.",
+      "Whisk butter with vinegar and brush over the chops. Rest 5 minutes and finish with parsley."
+    ],
+    "tip": "Brine the chops for 2 hours in salted water if you've got the time. They'll stay juicy even if you overshoot."
+  },
+  {
+    "slug": "ranch-hand-fire-roasted-veggies",
+    "title": "Ranch Hand Fire-Roasted Veggies",
+    "blend": "ranch-hand",
+    "image": "veggies",
+    "method": "Grill",
+    "category": "Sides",
+    "prep": "15 min",
+    "cook": "12 min",
+    "serves": 6,
+    "level": "Easy",
+    "summary": "Charred peppers, zucchini, onions and tomatoes. The side that disappears before the meat comes off.",
+    "ingredients": [
+      "2 zucchini, cut into planks",
+      "2 bell peppers, quartered",
+      "1 red onion, cut into thick rounds",
+      "1 pint cherry tomatoes, skewered",
+      "¼ cup olive oil",
+      "2 tbsp Ranch Hand Seasoning"
+    ],
+    "steps": [
+      "Toss everything with oil and Ranch Hand Seasoning.",
+      "Grill over high heat, turning once, until charred at the edges and just tender, 8–12 minutes.",
+      "Pile onto a board and hit with another light shake before serving."
+    ],
+    "tip": "Cut veggies big. Bigger pieces char outside before they turn mushy inside, and nothing falls through the grate."
+  },
+  {
+    "slug": "sweet-and-spicy-kebabs",
+    "title": "Sweet & Spicy Backyard Kebabs",
+    "blend": "sweet-and-spicy",
+    "image": "kebabs",
+    "method": "Grill",
+    "category": "Chicken",
+    "prep": "20 min",
+    "cook": "12 min",
+    "serves": 6,
+    "level": "Easy",
+    "summary": "Chicken thigh and pepper skewers that caramelize into sticky, sweet-hot bites. Sunset optional.",
+    "ingredients": [
+      "2 lb boneless chicken thighs, cubed",
+      "3 tbsp Sweet & Spicy Seasoning",
+      "2 bell peppers, cut into squares",
+      "1 red onion, cut into wedges",
+      "2 tbsp oil",
+      "Skewers (soak if wooden)"
+    ],
+    "steps": [
+      "Toss chicken with oil and Sweet & Spicy Seasoning. Marinate 30 minutes up to overnight.",
+      "Thread chicken, peppers and onion onto skewers.",
+      "Grill over medium heat, turning every 2–3 minutes, until the chicken hits 175°F and the edges are lacquered."
+    ],
+    "tip": "Use thighs, not breasts. They stay juicy at the higher temp you need to get that caramelized edge."
+  },
+  {
+    "slug": "hickory-smoked-salmon",
+    "title": "Hickory Grilled Salmon",
+    "blend": "where-theres-hickory-smoke",
+    "image": "salmon",
+    "method": "Grill",
+    "category": "Seafood",
+    "prep": "5 min",
+    "cook": "12 min",
+    "serves": 4,
+    "level": "Easy",
+    "summary": "Crisp-skinned salmon with real wood-fired flavor, even on a gas grill.",
+    "ingredients": [
+      "4 skin-on salmon fillets",
+      "1½ tbsp Where There's Hickory Smoke…",
+      "1 tbsp oil",
+      "Lemon wedges",
+      "Fresh herbs to finish"
+    ],
+    "steps": [
+      "Pat salmon very dry, oil lightly and season the flesh side.",
+      "Grill skin-side down over medium heat with the lid closed. Don't move it.",
+      "When the skin releases easily and the flesh is opaque most of the way up (about 10 minutes), flip for 1 minute.",
+      "Finish with lemon and herbs."
+    ],
+    "tip": "A clean, well-oiled, fully preheated grate is the difference between crispy skin and a stuck mess."
+  }
+]
