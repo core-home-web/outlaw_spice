@@ -179,7 +179,7 @@ def main():
     print("=" * 60)
     print("\n💡 Next steps:")
     print("   1. Review the data above")
-    print("   2. Integrate with generate_cms_pages.py")
+    print("   2. Copy updated fields into data/*.json and run build.py")
     print("   3. Regenerate all pages")
 
 if __name__ == '__main__':

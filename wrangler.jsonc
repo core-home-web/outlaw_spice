@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "outlaw-spice",
+  "compatibility_date": "2026-10-23",
+  "observability": {
+    "enabled": true
+  },
+  // Only the generated site is deployed. Source photos, scripts and .git stay out.
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

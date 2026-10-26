@@ -1,0 +1,14 @@
+# Old Webflow URLs -> new site
+/products.html                              /products/                            301
+/recipes.html                               /recipes/                             301
+/about.html                                 /about                                301
+/products/where-theres-hickory-smoke-copy   /products/where-theres-hickory-smoke  301
+/products/spice-*                           /products/                            301
+/recipes/grilled-*                          /recipes/                             301
+/detail_*                                   /products/                            301
+/checkout                                   /products/                            301
+/checkout.html                              /products/                            301
+/paypal-checkout.html                       /products/                            301
+/order-confirmation.html                    /                                     301
+/style-guide.html                           /                                     301
+/401.html                                   /                                     301
