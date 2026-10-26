@@ -90,10 +90,12 @@ def layout(*, title, description, body, path, active="", image="/assets/img/line
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>
 {ld}
+{MOTION_HEAD}
 {intro_head}
 </head>
 <body>
 {intro_body}
+{PAGE_TRANSITION}
 <a class="skip" href="#main">Skip to content</a>
 <div class="announce">New here? <a href="#posse">Join the Posse</a> for first dibs on new blends &amp; pit-tested recipes</div>
 <header class="site-header">
@@ -108,11 +110,20 @@ def layout(*, title, description, body, path, active="", image="/assets/img/line
 {posse()}
 </main>
 {footer()}
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/assets/vendor/SplitText.min.js" defer></script>
+<script src="/assets/js/motion.js" defer></script>
 <script src="/assets/js/site.js" defer></script>
 </body>
 </html>
 """
 
+
+# Motion flags, set before first paint: .motion (animations on unless reduced motion),
+# .pt-in (we arrived via a page transition, so start covered and wipe away).
+MOTION_HEAD = """<script>(function(d){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('motion');if(sessionStorage.getItem('os-pt'))d.classList.add('pt-in')}}catch(e){}})(document.documentElement)</script>"""
+PAGE_TRANSITION = """<div class="pt" aria-hidden="true"><div class="pt__panel"></div><img class="pt__logo" src="/assets/img/logo-white.webp" alt="" width="220" height="98"></div>"""
 
 # Logo-reveal intro, homepage only. The head script decides before first paint
 # (once per session, never for reduced-motion) so the page never flashes underneath.

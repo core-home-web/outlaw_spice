@@ -19,6 +19,7 @@ if (intro && document.documentElement.classList.contains("intro-on")) {
     done = true;
     intro.classList.add("is-out");
     document.documentElement.classList.remove("intro-on");
+    document.dispatchEvent(new Event("intro:done"));
     setTimeout(() => intro.remove(), 1000);
   };
   try { sessionStorage.setItem("os-intro", "1"); } catch {}
@@ -49,9 +50,11 @@ if (toggle) {
   );
 }
 
-// Scroll reveal
+// Scroll reveal (motion.js takes over when GSAP is running)
 const reveals = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
+if (window.OS_MOTION) {
+  // handled by motion.js
+} else if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {

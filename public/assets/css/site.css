@@ -506,6 +506,31 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; line-height: 0.95; }
 }
 .intro__skip:hover { opacity: 1; border-color: var(--ember); }
 
+/* ---------- page transition ---------- */
+.pt { position: fixed; inset: 0; z-index: 280; pointer-events: none; visibility: hidden; display: grid; place-items: center; }
+.pt__panel {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(232,116,42,0.55), transparent 60%),
+    var(--char);
+  border-top: 3px solid var(--ember);
+  transform: scaleY(0);
+}
+.pt__logo { position: relative; width: min(220px, 50vw); opacity: 0; visibility: hidden; }
+.pt-in .pt { visibility: visible; pointer-events: auto; animation: os-hide 0s 1.6s forwards; }
+.pt-in .pt__panel { transform: none; }
+.pt-in .pt__logo { opacity: 1; visibility: visible; animation: os-hide 0s 1.6s forwards; }
+@keyframes os-hide { to { visibility: hidden; pointer-events: none; } }
+
+/* ---------- GSAP motion mode ---------- */
+/* motion.js animates these; the CSS-only reveal stands down. */
+.motion .reveal { opacity: 1; transform: none; transition: none; }
+/* Headlines stay hidden until SplitText is ready; the delayed animation is a failsafe if GSAP never loads. */
+.motion .display, .motion .h2, .motion .pdp h1 { visibility: hidden; animation: os-show 0s 2.5s forwards; }
+@keyframes os-show { to { visibility: visible; } }
+.split-line { padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.site-header { will-change: transform; }
+
 /* ---------- 404 ---------- */
 .notfound { min-height: 80vh; display: grid; place-items: center; text-align: center; padding: 120px var(--gutter); }
 .notfound .display { font-size: clamp(5rem, 22vw, 14rem); color: var(--ember); }
