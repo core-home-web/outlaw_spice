@@ -5,6 +5,8 @@
   "observability": {
     "enabled": true
   },
+  // Required for `wrangler preview` (non-production branch builds). Settings are inherited from the top level.
+  "previews": {},
   // Only the generated site is deployed. Source photos, scripts and .git stay out.
   "assets": {
     "directory": "./public",
