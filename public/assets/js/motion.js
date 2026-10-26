@@ -107,15 +107,10 @@
     });
 
   const runHero = () => {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-    const tl = gsap.timeline();
-    const script = hero.querySelector(".hero__script");
-    const heading = hero.querySelector(".display");
-    if (script) tl.add(scriptReveal(script), 0);
-    if (heading) splitHeading(heading, { delay: 0.15, scroll: false, stagger: 0.07 });
-    tl.from(hero.querySelectorAll(".lede, .hero__ctas > *"), { y: 30, autoAlpha: 0, duration: 0.9, ease, stagger: 0.1 }, 0.55);
-    tl.from(".strip", { yPercent: 120, rotate: 0, duration: 1, ease: "expo.out" }, 0.4);
+    if (!document.querySelector(".hero")) return;
+    if (window.OSHero) window.OSHero.enter();
+    gsap.from(".hs__nav", { y: 30, autoAlpha: 0, duration: 0.9, ease, delay: 0.6 });
+    gsap.from(".strip", { yPercent: 120, rotate: 0, duration: 1, ease: "expo.out", delay: 0.4 });
   };
 
   const initText = () => {

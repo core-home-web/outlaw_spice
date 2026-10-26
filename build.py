@@ -255,10 +255,62 @@ def pit_panels():
     return "".join(out)
 
 
+# Homepage hero: a slider of featured blends over the grill video.
+def hero_slider(featured):
+    total = len(featured)
+    slides, dots = [], []
+    for i, p in enumerate(featured):
+        s, name = p["slug"], short(p)
+        active = " is-active" if i == 0 else ""
+        hidden = "" if i == 0 else ' aria-hidden="true"'
+        load = ' fetchpriority="high"' if i == 0 else ' loading="lazy"'
+        current = ' aria-current="true"' if i == 0 else ""
+        slides.append(f"""<article class="hs__slide{active}" style="--accent:{p['accent']}" data-accent="{p['accent']}" aria-roledescription="slide" aria-label="{i + 1} of {total}: {escape(p['name'])}"{hidden}>
+      <div class="hs__copy">
+        <span class="hs__eyebrow">Featured blend <b>{i + 1:02d}</b> / {total:02d}</span>
+        <span class="hs__tag">{escape(p['tagline'])}</span>
+        <h2 class="hs__name">{escape(p['name'])}</h2>
+        <p class="hs__desc">{escape(p['short'])}</p>
+        <div class="hs__meta">{heat(p['heat'])}<span>{escape(" · ".join(p['best_on']))}</span></div>
+        <div class="hero__ctas">
+          <a class="btn" href="/products/{s}">Shop {escape(name)} <span aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="/products/">All 11 Blends</a>
+        </div>
+      </div>
+      <div class="hs__visual">
+        <span class="hs__ghost" aria-hidden="true">{escape(name.split()[0].strip("'’"))}</span>
+        <span class="hs__float"><img class="hs__jar" src="/assets/img/products/{s}-cutout.webp" alt="{escape(p['name'])} jar" width="313" height="716"{load} decoding="async"></span>
+        <span class="hs__shadow" aria-hidden="true"></span>
+      </div>
+    </article>""")
+        dots.append(f'<button class="hs__dot{active}" type="button" aria-label="Show {escape(name)}"{current}>'
+                    f'<span class="hs__dot-label">{escape(name)}</span><span class="hs__dot-bar"><i></i></span></button>')
+    arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    return f"""<section class="hero hs" id="hero" style="--accent:{featured[0]['accent']}" aria-roledescription="carousel" aria-label="Featured blends">
+  <div class="hero__media">
+    <video autoplay muted loop playsinline preload="metadata" poster="/assets/img/flame-grill-1800.webp" aria-hidden="true">
+      <source src="/assets/video/grill-loop.webm" type="video/webm">
+      <source src="/assets/video/grill-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hs__glow" aria-hidden="true"></div>
+  <h1 class="sr-only">Outlaw Spices: bold BBQ rubs and seasonings</h1>
+  <div class="wrap hs__stage">
+    <div class="hs__slides" aria-live="polite">{"".join(slides)}</div>
+    <div class="hs__nav">
+      <button class="hs__arrow hs__prev" type="button" aria-label="Previous blend">{arrow}</button>
+      <div class="hs__dots">{"".join(dots)}</div>
+      <button class="hs__arrow hs__next" type="button" aria-label="Next blend">{arrow}</button>
+    </div>
+  </div>
+</section>"""
+
+
 # ---------------------------------------------------------------- pages
 
 def home():
     featured = [p for p in PRODUCTS if p.get("featured")]
+    more_picks = [p for p in PRODUCTS if not p.get("featured")][:4]  # the slider already shows the featured ones
     strip_words = ["Gluten Free", "Kosher Certified", "Born for the Pit", "11 Bold Blends", "Low & Slow",
                    "Hot & Fast", "Seasoned Like No Other"]
     strip = "".join(f'<span class="strip__item">{escape(w)}</span>' for w in strip_words * 2)
@@ -277,32 +329,16 @@ def home():
         for cut, t, note, pit in temps
     )
     body = f"""
-<section class="hero">
-  <div class="hero__media">
-    <video autoplay muted loop playsinline preload="metadata" poster="/assets/img/flame-grill-1800.webp" aria-hidden="true">
-      <source src="/assets/video/grill-loop.webm" type="video/webm">
-      <source src="/assets/video/grill-loop.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="wrap">
-    <span class="script hero__script">Seasoned like no other</span>
-    <h1 class="display">Bold BBQ Rubs for <span class="ember">Outlaw</span> Pitmasters</h1>
-    <p class="lede">Eleven bold blends built for brisket, ribs, wings and everything else that meets fire. Gluten free, kosher certified and absolutely not polite.</p>
-    <div class="hero__ctas">
-      <a class="btn" href="/products/">Shop the Lineup <span aria-hidden="true">→</span></a>
-      <a class="btn btn--ghost" href="/recipes/">Fire Up a Recipe</a>
-    </div>
-  </div>
-</section>
+{hero_slider(featured)}
 <div class="strip-wrap" aria-hidden="true"><div class="strip"><div class="strip__track">{strip}</div></div></div>
 
 <section class="section">
   <div class="wrap">
     <div class="section__head">
-      <div><span class="eyebrow">Fan Favorites</span><h2 class="h2">Pick Your <span class="ember">Poison</span></h2></div>
+      <div><span class="eyebrow">Fan Favorites</span><h2 class="h2">Pick Your <span class="ember">Flavor</span></h2></div>
       <a class="link-arrow" href="/products/">See all 11 blends <span>→</span></a>
     </div>
-    <div class="grid grid--products">{"".join(product_card(p) for p in featured)}</div>
+    <div class="grid grid--products">{"".join(product_card(p) for p in more_picks)}</div>
   </div>
 </section>
 
