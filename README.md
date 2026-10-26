@@ -41,6 +41,12 @@ The fire logo-reveal (`public/assets/video/intro*.{mp4,webm}`) plays full-screen
 browser session on the homepage, then fades into the site. It's skippable, uses a portrait
 cut on phones, and is skipped for visitors with reduced motion turned on.
 
+## Motion (GSAP)
+
+`public/assets/js/motion.js` drives page transitions, headline text reveals and scroll
+animations using GSAP 3.13 (self-hosted in `public/assets/vendor/`). It's off for visitors with
+reduced motion turned on, and if GSAP fails to load, CSS failsafes show all content after a moment.
+
 ## Local preview
 
 ```bash

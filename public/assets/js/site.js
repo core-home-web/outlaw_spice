@@ -19,6 +19,7 @@ if (intro && document.documentElement.classList.contains("intro-on")) {
     done = true;
     intro.classList.add("is-out");
     document.documentElement.classList.remove("intro-on");
+    document.dispatchEvent(new Event("intro:done"));
     setTimeout(() => intro.remove(), 1000);
   };
   try { sessionStorage.setItem("os-intro", "1"); } catch {}
@@ -49,9 +50,11 @@ if (toggle) {
   );
 }
 
-// Scroll reveal
+// Scroll reveal (motion.js takes over when GSAP is running)
 const reveals = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
+if (window.OS_MOTION) {
+  // handled by motion.js
+} else if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -66,6 +69,48 @@ if ("IntersectionObserver" in window) {
   reveals.forEach((el) => io.observe(el));
 } else {
   reveals.forEach((el) => el.classList.add("in"));
+}
+
+// "What's on the pit?" panels: hover/focus/tap to expand on desktop, swipe carousel on mobile.
+const pits = document.getElementById("pits");
+if (pits) {
+  const panels = Array.from(pits.querySelectorAll(".pit"));
+  const mobile = window.matchMedia("(max-width: 860px)");
+  const count = document.querySelector(".pits__count b");
+  const bar = document.querySelector(".pits__progress span");
+  const activate = (panel) => {
+    if (panel.classList.contains("is-active")) return;
+    panels.forEach((p) => p.classList.toggle("is-active", p === panel));
+    if (count) count.textContent = String(panels.indexOf(panel) + 1).padStart(2, "0");
+  };
+
+  panels.forEach((panel) => {
+    panel.addEventListener("mouseenter", () => !mobile.matches && activate(panel));
+    panel.addEventListener("focusin", () => !mobile.matches && activate(panel));
+    panel.addEventListener("click", (e) => {
+      if (mobile.matches || e.target.closest("a")) return;
+      // First tap on a closed panel opens it; tapping an open panel goes to its blends.
+      if (!panel.classList.contains("is-active")) activate(panel);
+      else location.href = panel.querySelector(".pit__cta").href;
+    });
+  });
+
+  // Mobile: whichever card is centered is active; progress bar follows the swipe.
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => mobile.matches && e.isIntersecting && activate(e.target)),
+      { root: pits, threshold: 0.6 }
+    );
+    panels.forEach((p) => io.observe(p));
+  }
+  const progress = () => {
+    if (!bar) return;
+    const max = pits.scrollWidth - pits.clientWidth;
+    const share = 100 / panels.length;
+    bar.style.width = `${share + (max > 0 ? (pits.scrollLeft / max) * (100 - share) : 0)}%`;
+  };
+  pits.addEventListener("scroll", progress, { passive: true });
+  progress();
 }
 
 // Filter chips: <div class="filters" data-target="#grid"> + items with data-tags="a|b"
