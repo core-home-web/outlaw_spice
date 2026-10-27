@@ -279,7 +279,7 @@ def hero_slider(featured):
       </div>
       <div class="hs__visual">
         <span class="hs__ghost" aria-hidden="true">{escape(name.split()[0].strip("'’"))}</span>
-        <span class="hs__float"><img class="hs__jar" src="/assets/img/products/{s}-cutout.webp" alt="{escape(p['name'])} jar" width="313" height="716"{load} decoding="async"></span>
+        <span class="hs__float"><img class="hs__jar" src="/assets/img/products/{s}-cutout-700.webp" srcset="/assets/img/products/{s}-cutout-700.webp 1x, /assets/img/products/{s}-cutout-1400.webp 2x" alt="{escape(p['name'])} jar" width="306" height="700"{load} decoding="async"></span>
         <span class="hs__shadow" aria-hidden="true"></span>
       </div>
     </article>""")
