@@ -28,6 +28,45 @@ PITS = {
 HEAT_WORDS = {1: "Mild", 2: "Warm", 3: "Medium", 4: "Hot", 5: "Fire"}
 
 
+def fit(limit, *options):
+    """First option that fits within limit characters (search engines truncate past ~60 / ~160)."""
+    for o in options:
+        if len(o) <= limit:
+            return o
+    return options[-1]
+
+
+# Share-card specs collected while pages render; tools/make_og.cjs turns them into 1200x630 JPEGs.
+OG_CARDS = []
+PAGE_CARDS = {
+    "home": {"kind": "page", "bg": "flame-grill-1800", "eyebrow": "Seasoned like no other",
+             "headline": "Bold BBQ Rubs", "accent": "& Seasonings",
+             "sub": "11 blends built for brisket, ribs, wings & everything that meets fire",
+             "jars": ["nashville-hot-chicken", "roadhouse-rub", "kansas-city-best"]},
+    "shop": {"kind": "page", "bg": "lineup-2-1800", "eyebrow": "The Lineup", "headline": "Shop", "accent": "BBQ Rubs",
+             "sub": "11 gluten-free, kosher-certified blends", "jars": ["cowboy-coffee-rub", "where-theres-hickory-smoke", "sweet-and-spicy"]},
+    "recipes": {"kind": "page", "bg": "mixed-grill-1800", "eyebrow": "The Outlaw Cookbook", "headline": "BBQ Recipes",
+                "accent": "Worth the Smoke", "sub": "Brisket, ribs, ribeyes, shrimp & more, each built around a blend"},
+    "about": {"kind": "page", "bg": "grillside-1800", "eyebrow": "Our Story", "headline": "Grill Like",
+              "accent": "an Outlaw", "sub": "Bold BBQ rubs for people who cook over fire"},
+}
+
+
+def og_card(key):
+    if key in PAGE_CARDS:
+        return {"key": key, **PAGE_CARDS[key]}
+    kind, slug = key.split("-", 1)
+    if kind == "product":
+        p = BY_SLUG[slug]
+        return {"key": key, "kind": "product", "slug": slug, "name": p["name"], "tagline": p["tagline"],
+                "accent": p["accent"], "weight": p["net_weight"], "heat": p["heat"], "best_on": p["best_on"]}
+    r = next(x for x in RECIPES if x["slug"] == slug)
+    b = BY_SLUG[r["blend"]]
+    return {"key": key, "kind": "recipe", "slug": slug, "title": r["title"], "image": f"{r['image']}-1800",
+            "method": r["method"], "category": r["category"], "prep": r["prep"], "cook": r["cook"],
+            "serves": r["serves"], "blend": b["slug"], "blend_name": short(b), "accent": b["accent"]}
+
+
 def pits_for(p):
     return [pit for pit, cuts in PITS.items() if cuts & set(p["best_on"])]
 
@@ -58,8 +97,14 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700"
 NAV = [("/products/", "Shop Blends"), ("/recipes/", "Recipes"), ("/#pit-guide", "Pit Guide"), ("/about", "Our Story")]
 
 
-def layout(*, title, description, body, path, active="", image="/assets/img/lineup-1800.webp", jsonld=None, intro=False):
+def layout(*, title, description, body, path, og, active="", og_type="website", jsonld=None, intro=False, noindex=False, social=None):
+    """og: (card key, alt text) for the share image in /assets/og/ (made by tools/make_og.cjs)."""
     full_title = title if "Outlaw Spices" in title else f"{title} | Outlaw Spices"
+    # Social cards show the site name separately, so drop the " | Outlaw Spices" suffix there.
+    social_title = social or full_title.removesuffix(" | Outlaw Spices")
+    og_key, og_alt = og
+    OG_CARDS.append(og_card(og_key))
+    og_image = f"{SITE_URL}/assets/og/{og_key}.jpg"
     nav = "".join(
         f'<a href="{href}"{" aria-current=page" if label == active else ""}>{label}</a>' for href, label in NAV
     )
@@ -73,14 +118,24 @@ def layout(*, title, description, body, path, active="", image="/assets/img/line
 <title>{escape(full_title)}</title>
 <meta name="description" content="{escape(description)}">
 <link rel="canonical" href="{SITE_URL}{path}">
+{'<meta name="robots" content="noindex">' if noindex else ''}
 <meta name="theme-color" content="#0f0d0c">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Outlaw Spices">
-<meta property="og:title" content="{escape(full_title)}">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{escape(social_title)}">
 <meta property="og:description" content="{escape(description)}">
 <meta property="og:url" content="{SITE_URL}{path}">
-<meta property="og:image" content="{SITE_URL}{image}">
+<meta property="og:image" content="{og_image}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{escape(og_alt)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{escape(social_title)}">
+<meta name="twitter:description" content="{escape(description)}">
+<meta name="twitter:image" content="{og_image}">
+<meta name="twitter:image:alt" content="{escape(og_alt)}">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -416,6 +471,7 @@ def home():
         title="Outlaw Spices | Bold BBQ Rubs & Seasonings",
         description="Bold BBQ rubs and seasonings for brisket, ribs, wings and steaks. 11 gluten-free, kosher-certified blends built for the pit. Seasoned like no other.",
         body=body, path="/", jsonld=ld, intro=True,
+        og=("home", "Outlaw Spices BBQ rub jars over a flaming grill: Bold BBQ Rubs & Seasonings"),
     )
 
 
@@ -441,7 +497,8 @@ def shop():
         for i, p in enumerate(PRODUCTS)]}
     return layout(title="Shop BBQ Rubs & Seasonings",
                   description="Shop all 11 Outlaw Spices BBQ rubs: Roadhouse Rub, Cowboy Coffee, Nashville Hot, Kansas City's Best and more. Gluten free and kosher.",
-                  body=body, path="/products/", active="Shop Blends", image="/assets/img/lineup-2-1800.webp", jsonld=ld)
+                  body=body, path="/products/", active="Shop Blends", jsonld=ld,
+                  og=("shop", "The Outlaw Spices lineup of BBQ rubs"))
 
 
 def product_page(p):
@@ -511,10 +568,14 @@ def product_page(p):
     ld = {"@context": "https://schema.org", "@type": "Product", "name": p["name"], "description": p["description"],
           "image": [f"{SITE_URL}/assets/img/products/{s}-{n}.webp" for n in range(1, 5)],
           "brand": {"@type": "Brand", "name": "Outlaw Spices"}, "url": f"{SITE_URL}/products/{s}"}
-    return layout(title=f"{p['name']} — {p['tagline']}",
-                  description=f"{p['short']} {p['net_weight']}. Gluten free, kosher certified BBQ seasoning from Outlaw Spices.",
-                  body=body, path=f"/products/{s}", active="Shop Blends",
-                  image=f"/assets/img/products/{s}-1.webp", jsonld=ld)
+    kind = "BBQ Rub" if "Seasoning" in p["name"] else "BBQ Seasoning"
+    oz = p["net_weight"].split("|")[0].strip()
+    return layout(title=fit(60, f"{p['name']} | {kind} | Outlaw Spices", f"{p['name']} | Outlaw Spices"),
+                  description=fit(160, f"{p['short']} Gluten free & kosher certified. {oz} jar from Outlaw Spices.",
+                                  f"{p['short']} Gluten free & kosher certified.", p["short"]),
+                  body=body, path=f"/products/{s}", active="Shop Blends", og_type="product", jsonld=ld,
+                  social=f"{p['name']}: {p['tagline']}",
+                  og=(f"product-{s}", f"{p['name']} jar from Outlaw Spices: {p['tagline']}"))
 
 
 def recipes_index():
@@ -534,8 +595,10 @@ def recipes_index():
     <div class="grid grid--recipes" id="recipe-grid">{"".join(recipe_card(r) for r in RECIPES)}</div>
   </div>
 </section>"""
-    return layout(title="BBQ Recipes", description="Smoked brisket, sticky ribs, coffee-rubbed ribeyes, Nashville hot shrimp and more BBQ recipes from Outlaw Spices.",
-                  body=body, path="/recipes/", active="Recipes", image="/assets/img/mixed-grill-1800.webp")
+    return layout(title="BBQ & Grilling Recipes | Outlaw Spices",
+                  description="Pit-tested BBQ recipes: smoked brisket, sticky Kansas City ribs, coffee-rubbed ribeyes, Nashville hot shrimp and more, each built around an Outlaw blend.",
+                  body=body, path="/recipes/", active="Recipes",
+                  og=("recipes", "A mixed grill of steaks and sausages over open flame: BBQ Recipes Worth the Smoke"))
 
 
 def recipe_page(r):
@@ -587,8 +650,12 @@ def recipe_page(r):
           "recipeCategory": r["category"], "recipeIngredient": r["ingredients"],
           "recipeInstructions": [{"@type": "HowToStep", "text": x} for x in r["steps"]],
           "author": {"@type": "Organization", "name": "Outlaw Spices"}}
-    return layout(title=r["title"], description=r["summary"], body=body, path=f"/recipes/{r['slug']}",
-                  active="Recipes", image=f"/assets/img/{r['image']}-1800.webp", jsonld=ld)
+    blend = BY_SLUG[r["blend"]]["name"]
+    return layout(title=fit(60, f"{r['title']} Recipe | Outlaw Spices", f"{r['title']} | Outlaw Spices"),
+                  description=fit(160, f"{r['summary']} Made with {blend}.", r["summary"]),
+                  body=body, path=f"/recipes/{r['slug']}", active="Recipes", og_type="article", jsonld=ld,
+                  social=f"{r['title']} with {short(BY_SLUG[r['blend']])}",
+                  og=(f"recipe-{r['slug']}", f"{r['title']}, made with {blend}"))
 
 
 def about():
@@ -635,8 +702,10 @@ def about():
     </div>
   </div>
 </section>"""
-    return layout(title="Our Story", description="Outlaw Spices makes bold BBQ rubs for people who cook over fire. Gluten free, kosher certified, seasoned like no other.",
-                  body=body, path="/about", active="Our Story", image="/assets/img/grillside-1800.webp")
+    return layout(title="Our Story: BBQ Rubs Built for Fire | Outlaw Spices",
+                  description="Outlaw Spices makes bold BBQ rubs and seasonings for people who cook over fire. Gluten free, kosher certified and seasoned like no other.",
+                  body=body, path="/about", active="Our Story",
+                  og=("about", "Seasoning steaks on a backyard grill with Outlaw Spices"))
 
 
 def not_found():
@@ -649,7 +718,8 @@ def not_found():
     <div class="hero__ctas" style="justify-content:center"><a class="btn" href="/">Head Home</a><a class="btn btn--ghost" href="/products/">Shop Blends</a></div>
   </div>
 </section>"""
-    return layout(title="Page Not Found", description="This page wandered off the ranch.", body=body, path="/404")
+    return layout(title="Page Not Found", description="This page wandered off the ranch.", body=body, path="/404",
+                  noindex=True, og=("home", "Outlaw Spices: Bold BBQ Rubs & Seasonings"))
 
 
 def sitemap():
@@ -677,6 +747,8 @@ def main():
     write("404.html", not_found())
     write("sitemap.xml", sitemap())
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
+    cards = list({c["key"]: c for c in OG_CARDS}.values())
+    (ROOT / "data" / "og-cards.json").write_text(json.dumps(cards, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"built {len(PRODUCTS)} products, {len(RECIPES)} recipes -> {OUT}")
 
 

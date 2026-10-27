@@ -30,6 +30,19 @@ New photos: drop the original into `brand-assets/photos/`, add it to `PHOTOS` in
 `tools/optimize_images.py`, run `python3 tools/optimize_images.py`, then use its name
 as a recipe `image`.
 
+## Share images (Open Graph)
+
+Every page has a branded 1200x630 share card in `public/assets/og/` (blend, recipe and
+page designs), plus meta title/description and Open Graph + Twitter tags. `build.py` writes
+the card list to `data/og-cards.json`; render the cards after changing products or recipes:
+
+```bash
+python3 build.py && node tools/make_og.cjs     # needs Playwright + Chromium
+```
+
+Share URLs use `SITE_URL` in `build.py` (`https://outlawspice.com`), so that domain must
+point at this Cloudflare Worker for the images to show up when links are shared.
+
 ## Email signups ("Join the Posse")
 
 Set `SIGNUP_ENDPOINT` at the top of `public/assets/js/site.js` to a form backend

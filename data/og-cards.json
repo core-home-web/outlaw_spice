@@ -1,0 +1,333 @@
+[
+ {
+  "key": "home",
+  "kind": "page",
+  "bg": "flame-grill-1800",
+  "eyebrow": "Seasoned like no other",
+  "headline": "Bold BBQ Rubs",
+  "accent": "& Seasonings",
+  "sub": "11 blends built for brisket, ribs, wings & everything that meets fire",
+  "jars": [
+   "nashville-hot-chicken",
+   "roadhouse-rub",
+   "kansas-city-best"
+  ]
+ },
+ {
+  "key": "shop",
+  "kind": "page",
+  "bg": "lineup-2-1800",
+  "eyebrow": "The Lineup",
+  "headline": "Shop",
+  "accent": "BBQ Rubs",
+  "sub": "11 gluten-free, kosher-certified blends",
+  "jars": [
+   "cowboy-coffee-rub",
+   "where-theres-hickory-smoke",
+   "sweet-and-spicy"
+  ]
+ },
+ {
+  "key": "product-roadhouse-rub",
+  "kind": "product",
+  "slug": "roadhouse-rub",
+  "name": "Roadhouse Rub",
+  "tagline": "Saddle Up",
+  "accent": "#e2733a",
+  "weight": "11.5 oz | 326 g",
+  "heat": 2,
+  "best_on": [
+   "Beef",
+   "Pork",
+   "Burgers"
+  ]
+ },
+ {
+  "key": "product-cowboy-coffee-rub",
+  "kind": "product",
+  "slug": "cowboy-coffee-rub",
+  "name": "Cowboy Coffee Rub",
+  "tagline": "Brewed & Broiled",
+  "accent": "#c8925a",
+  "weight": "11 oz | 311 g",
+  "heat": 2,
+  "best_on": [
+   "Beef",
+   "Brisket",
+   "Game"
+  ]
+ },
+ {
+  "key": "product-nashville-hot-chicken",
+  "kind": "product",
+  "slug": "nashville-hot-chicken",
+  "name": "Nashville Hot Chicken Seasoning",
+  "tagline": "Who You Callin' Chicken?",
+  "accent": "#e8542a",
+  "weight": "11.5 oz | 326 g",
+  "heat": 5,
+  "best_on": [
+   "Chicken",
+   "Wings",
+   "Shrimp"
+  ]
+ },
+ {
+  "key": "product-kansas-city-best",
+  "kind": "product",
+  "slug": "kansas-city-best",
+  "name": "Kansas City's Best Seasoning",
+  "tagline": "Put the Sass in Kansas",
+  "accent": "#d4365c",
+  "weight": "11 oz | 311 g",
+  "heat": 1,
+  "best_on": [
+   "Ribs",
+   "Pork",
+   "Chicken"
+  ]
+ },
+ {
+  "key": "product-whole-hog",
+  "kind": "product",
+  "slug": "whole-hog",
+  "name": "Whole Hog Seasoning",
+  "tagline": "Leave Nothin' Behind",
+  "accent": "#9fb8d6",
+  "weight": "11.5 oz | 326 g",
+  "heat": 2,
+  "best_on": [
+   "Pork Shoulder",
+   "Ribs",
+   "Chops"
+  ]
+ },
+ {
+  "key": "product-where-theres-hickory-smoke",
+  "kind": "product",
+  "slug": "where-theres-hickory-smoke",
+  "name": "Where There's Hickory Smoke…",
+  "tagline": "What a Smokeshow",
+  "accent": "#ef7f3c",
+  "weight": "11.5 oz | 326 g",
+  "heat": 1,
+  "best_on": [
+   "Chicken",
+   "Salmon",
+   "Burgers"
+  ]
+ },
+ {
+  "key": "product-sweet-and-spicy",
+  "kind": "product",
+  "slug": "sweet-and-spicy",
+  "name": "Sweet & Spicy Seasoning",
+  "tagline": "It's Getting Hot in Here",
+  "accent": "#e0629a",
+  "weight": "11.5 oz | 326 g",
+  "heat": 3,
+  "best_on": [
+   "Pork",
+   "Chicken",
+   "Wings"
+  ]
+ },
+ {
+  "key": "product-apple-honey-hoedown",
+  "kind": "product",
+  "slug": "apple-honey-hoedown",
+  "name": "Apple & Honey Hoedown",
+  "tagline": "Pork's Best Mate",
+  "accent": "#9bc53d",
+  "weight": "12 oz | 340 g",
+  "heat": 1,
+  "best_on": [
+   "Pork",
+   "Chicken",
+   "Turkey"
+  ]
+ },
+ {
+  "key": "product-hoppin-honey-mustard",
+  "kind": "product",
+  "slug": "hoppin-honey-mustard",
+  "name": "Hoppin' Honey Mustard",
+  "tagline": "Sweet n' Tangy",
+  "accent": "#f2b53a",
+  "weight": "11.5 oz | 326 g",
+  "heat": 1,
+  "best_on": [
+   "Chicken",
+   "Pork",
+   "Seafood"
+  ]
+ },
+ {
+  "key": "product-ranch-hand",
+  "kind": "product",
+  "slug": "ranch-hand",
+  "name": "Ranch Hand Seasoning",
+  "tagline": "Wrangle-Worthy Flavor",
+  "accent": "#a9c4e8",
+  "weight": "11.5 oz | 326 g",
+  "heat": 1,
+  "best_on": [
+   "Veggies",
+   "Chicken",
+   "Potatoes"
+  ]
+ },
+ {
+  "key": "product-jerky-seasoning",
+  "kind": "product",
+  "slug": "jerky-seasoning",
+  "name": "Jerky Seasoning",
+  "tagline": "No Jerks, All Jerky",
+  "accent": "#e2557a",
+  "weight": "11.5 oz | 326 g",
+  "heat": 2,
+  "best_on": [
+   "Jerky",
+   "Beef",
+   "Game"
+  ]
+ },
+ {
+  "key": "recipes",
+  "kind": "page",
+  "bg": "mixed-grill-1800",
+  "eyebrow": "The Outlaw Cookbook",
+  "headline": "BBQ Recipes",
+  "accent": "Worth the Smoke",
+  "sub": "Brisket, ribs, ribeyes, shrimp & more, each built around a blend"
+ },
+ {
+  "key": "recipe-cowboy-coffee-ribeyes",
+  "kind": "recipe",
+  "slug": "cowboy-coffee-ribeyes",
+  "title": "Cowboy Coffee Ribeyes",
+  "image": "hero-steaks-1800",
+  "method": "Grill",
+  "category": "Beef",
+  "prep": "10 min",
+  "cook": "15 min",
+  "serves": 2,
+  "blend": "cowboy-coffee-rub",
+  "blend_name": "Cowboy Coffee Rub",
+  "accent": "#c8925a"
+ },
+ {
+  "key": "recipe-roadhouse-smoked-brisket",
+  "kind": "recipe",
+  "slug": "roadhouse-smoked-brisket",
+  "title": "Roadhouse Smoked Brisket",
+  "image": "brisket-smoker-1800",
+  "method": "Smoke",
+  "category": "Beef",
+  "prep": "30 min",
+  "cook": "10–12 hrs",
+  "serves": 12,
+  "blend": "roadhouse-rub",
+  "blend_name": "Roadhouse Rub",
+  "accent": "#e2733a"
+ },
+ {
+  "key": "recipe-kansas-city-sticky-ribs",
+  "kind": "recipe",
+  "slug": "kansas-city-sticky-ribs",
+  "title": "Kansas City Sticky Ribs",
+  "image": "ribs-1800",
+  "method": "Smoke",
+  "category": "Pork",
+  "prep": "15 min",
+  "cook": "5–6 hrs",
+  "serves": 4,
+  "blend": "kansas-city-best",
+  "blend_name": "Kansas City's Best",
+  "accent": "#d4365c"
+ },
+ {
+  "key": "recipe-nashville-hot-shrimp-skewers",
+  "kind": "recipe",
+  "slug": "nashville-hot-shrimp-skewers",
+  "title": "Nashville Hot Shrimp Skewers",
+  "image": "shrimp-1800",
+  "method": "Grill",
+  "category": "Seafood",
+  "prep": "15 min",
+  "cook": "6 min",
+  "serves": 4,
+  "blend": "nashville-hot-chicken",
+  "blend_name": "Nashville Hot",
+  "accent": "#e8542a"
+ },
+ {
+  "key": "recipe-apple-honey-pork-chops",
+  "kind": "recipe",
+  "slug": "apple-honey-pork-chops",
+  "title": "Apple & Honey Pork Chops",
+  "image": "pork-chops-1800",
+  "method": "Grill",
+  "category": "Pork",
+  "prep": "10 min",
+  "cook": "15 min",
+  "serves": 4,
+  "blend": "apple-honey-hoedown",
+  "blend_name": "Apple & Honey Hoedown",
+  "accent": "#9bc53d"
+ },
+ {
+  "key": "recipe-ranch-hand-fire-roasted-veggies",
+  "kind": "recipe",
+  "slug": "ranch-hand-fire-roasted-veggies",
+  "title": "Ranch Hand Fire-Roasted Veggies",
+  "image": "veggies-1800",
+  "method": "Grill",
+  "category": "Sides",
+  "prep": "15 min",
+  "cook": "12 min",
+  "serves": 6,
+  "blend": "ranch-hand",
+  "blend_name": "Ranch Hand",
+  "accent": "#a9c4e8"
+ },
+ {
+  "key": "recipe-sweet-and-spicy-kebabs",
+  "kind": "recipe",
+  "slug": "sweet-and-spicy-kebabs",
+  "title": "Sweet & Spicy Backyard Kebabs",
+  "image": "kebabs-1800",
+  "method": "Grill",
+  "category": "Chicken",
+  "prep": "20 min",
+  "cook": "12 min",
+  "serves": 6,
+  "blend": "sweet-and-spicy",
+  "blend_name": "Sweet & Spicy",
+  "accent": "#e0629a"
+ },
+ {
+  "key": "recipe-hickory-smoked-salmon",
+  "kind": "recipe",
+  "slug": "hickory-smoked-salmon",
+  "title": "Hickory Grilled Salmon",
+  "image": "salmon-1800",
+  "method": "Grill",
+  "category": "Seafood",
+  "prep": "5 min",
+  "cook": "12 min",
+  "serves": 4,
+  "blend": "where-theres-hickory-smoke",
+  "blend_name": "Hickory Smoke",
+  "accent": "#ef7f3c"
+ },
+ {
+  "key": "about",
+  "kind": "page",
+  "bg": "grillside-1800",
+  "eyebrow": "Our Story",
+  "headline": "Grill Like",
+  "accent": "an Outlaw",
+  "sub": "Bold BBQ rubs for people who cook over fire"
+ }
+]
